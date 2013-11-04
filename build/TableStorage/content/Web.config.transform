@@ -1,0 +1,8 @@
+﻿<configuration>
+	<appSettings>
+		<add key="storage.AccountName" value="YOUR_ACCOUNT_NAME" />
+		<add key="storage.AccessKey" value="YOUR_ACCESS_KEY" />
+		<add key="storage.UseHttps" value="true" />
+	</appSettings>
+</configuration>
+
