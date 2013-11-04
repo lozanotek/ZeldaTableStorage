@@ -1,0 +1,61 @@
+Zelda for Azure Table Storage
+------------------------------
+
+Using Zelda for Azure Table Storage is pretty straight forward.  All you need to provide to the constructor is an instance of the CloudStorageAccount class (http://msdn.microsoft.com/en-us/library/microsoft.windowsazure.cloudstorageaccount).
+
+Here's an example of how to get going:
+
+var storageAccount = GetMyStorageAccountSomehow();
+var repository = new StorageRepository<MyEntity>(storageAccount);
+
+That's it!
+
+Using Built-in Storage Account Parsing
+---------------------------------------
+If the above code sample is too much, you can make things easier by using the built-in components that are part of the Config namespace.  These helper classes will parse information out of your configuration file and create a CloudStorageAccount based on a pattern.  Here are the steps on how to use them.
+
+1) You'll need specify your storage account information within your config file
+
+<appSettings>
+	<add key="storage.AccountName" value="YOUR_ACCOUNT_NAME" />
+	<add key="storage.AccessKey" value="YOUR_ACCESS_KEY" />
+	<add key="storage.UseHttps" value="true" />
+</appSettings>
+
+2) Use the StorageManager class to convert these values into a CloudStorageAccount
+
+var storageAccount = StorageManager.GetStorageAccount();
+var repository = new StorageRepository<MyEntity>(storageAccount);
+
+That's it! The values will be parsed from the configuration file and pulled into the CloudStorageAccount instace.
+
+Explicit Storage Account Control
+--------------------------------
+If you need more control over these settings, you can specify a prefix for each setting.  Each setting follows the pattern, storage.{prefix}.SettingName, so you can support different settings for different accounts.
+
+For example, say you have the following storage accounts:
+
+<appSettings>
+	<!-- Main Storage Account -->
+	<add key="storage.Main.AccountName" value="YOUR_ACCOUNT_NAME" />
+	<add key="storage.Main.AccessKey" value="YOUR_ACCESS_KEY" />
+	<add key="storage.Main.UseHttps" value="true" />
+
+	<!-- Secondary Storage Account -->
+	<add key="storage.Secondary.AccountName" value="YOUR_ACCOUNT_NAME" />
+	<add key="storage.Secondary.AccessKey" value="YOUR_ACCESS_KEY" />
+	<add key="storage.Secondary.UseHttps" value="true" />
+</appSettings>
+
+To pull the "Secondary" storage account, you'll need to specify it to the StorageManager like this:
+
+var storageAccount = StorageManager.GetStorageAccount("Secondary");
+var repository = new StorageRepository<MyEntity>(storageAccount);
+
+Issues/Requests
+-----------------
+If you run into any issues/requests, please post them to GitHub - https://github.com/lozanotek/ZeldaTableStorage/issues
+
+Thanks!
+
+

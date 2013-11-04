@@ -1,6 +1,7 @@
 ﻿namespace Zelda.TableStorage.Sample {
     using System;
     using System.Linq;
+    using Zelda.TableStorage.Config;
 
     class Program {
         static void Main() {
@@ -15,7 +16,8 @@
 
             repo.Add(entity);
 
-            var foundEntity = repo.Where(e => e.PartitionKey == person.LastName)
+            var foundEntity = repo
+                .Where(e => e.PartitionKey == person.LastName)
                 .Where(e => e.RowKey == person.Id)
                 .SingleOrDefault();
 
