@@ -80,6 +80,7 @@ publish
 
 #NuGet Packages
 packages/
+build/TableStorage/lib/net45/*
 
 # Windows Azure Build Output
 csx
