@@ -9,8 +9,10 @@ namespace Zelda.TableStorage {
     public class StorageRepository<TEntity> : RepositoryBase<TEntity>
         where TEntity : TableServiceEntity {
 
+        private TableServiceContext Context;
+        
         public TableServiceContext GetContext() {
-            return TableClient.GetTableServiceContext();
+            return Context ?? (Context = TableClient.GetTableServiceContext());
         }
 
         public CloudTableClient TableClient { get; private set; }
